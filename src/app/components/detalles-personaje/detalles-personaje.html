@@ -1,0 +1,9 @@
+<div class="p-3 text-center">
+  <img [src]="data.image" width="150" class="rounded mb-3" />
+  <h2>{{ data.name }}</h2>
+  <p><b>Género:</b> {{ data.gender }}</p>
+  <p><b>Especie:</b> {{ data.species }}</p>
+  <p><b>Origen:</b> {{ data.origin.name }}</p>
+  <p><b>Estatus:</b> {{ data.status }}</p>
+  <p><b>Creado:</b> {{ data.created | date: 'dd/MM/yyyy' }}</p>
+</div>
