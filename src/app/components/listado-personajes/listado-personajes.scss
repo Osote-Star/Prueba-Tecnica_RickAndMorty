@@ -1,0 +1,92 @@
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.search-field {
+  width: 300px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.character-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 16px;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  mat-card-content {
+    text-align: center;
+    h2 {
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    p {
+      margin: 0.25rem 0;
+      color: #555555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+
+  mat-icon {
+    font-size: 22px;
+    color: #3f51b5;
+  }
+
+  .paginator-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+
+  ::ng-deep .mat-mdc-paginator {
+    border-radius: 10px;
+    background-color: #1e1e1e;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+
+    .mat-mdc-paginator-page-size-label,
+    .mat-mdc-paginator-range-label {
+      color: #ccc;
+    }
+
+    .mat-mdc-paginator-navigation-previous,
+    .mat-mdc-paginator-navigation-next {
+      color: #4caf50;
+      font-weight: 600;
+      transition: transform 0.2s ease, color 0.2s ease;
+
+      &:hover {
+        color: #81c784;
+        transform: scale(1.2);
+      }
+    }
+
+    .mat-mdc-paginator-range-actions {
+      gap: 6px;
+    }
+  }
+}
+
+}

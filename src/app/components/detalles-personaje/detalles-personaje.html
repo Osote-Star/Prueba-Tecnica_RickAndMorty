@@ -1,9 +1,15 @@
-<div class="p-3 text-center">
-  <img [src]="data.image" width="150" class="rounded mb-3" />
+<div class="detalle-container">
+  <img [src]="data.image" alt="{{ data.name }}" class="character-img" />
   <h2>{{ data.name }}</h2>
-  <p><b>Género:</b> {{ data.gender }}</p>
-  <p><b>Especie:</b> {{ data.species }}</p>
-  <p><b>Origen:</b> {{ data.origin.name }}</p>
-  <p><b>Estatus:</b> {{ data.status }}</p>
-  <p><b>Creado:</b> {{ data.created | date: 'dd/MM/yyyy' }}</p>
+  <div class="info">
+    <p><mat-icon>badge</mat-icon> <b>Especie:</b> {{ data.species }}</p>
+    <p><mat-icon>person</mat-icon> <b>Género:</b> {{ data.gender }}</p>
+    <p><mat-icon>place</mat-icon> <b>Origen:</b> {{ data.origin.name }}</p>
+    <p><mat-icon>favorite</mat-icon> <b>Estatus:</b> {{ data.status }}</p>
+    <p><mat-icon>event</mat-icon> <b>Creacion:</b> {{ data.created | date: 'dd/MM/yyyy' }}</p>
+  </div>
+
+  <button mat-stroked-button color="accent" mat-dialog-close>
+    Cerrar
+  </button>
 </div>

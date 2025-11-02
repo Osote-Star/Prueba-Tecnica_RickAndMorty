@@ -4,9 +4,10 @@ import { RickMorty } from '../../services/rick-morty';
 import { Character } from '../../models/characters.model';
 import { DetallesPersonaje } from '../detalles-personaje/detalles-personaje';
 
-import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -17,7 +18,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   imports: [
     CommonModule,
     DatePipe,
-    MatTableModule,
+    MatCardModule,
+    MatIconModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -64,6 +66,9 @@ export class ListadoPersonajes {
   openDetails(character: Character) {
     this.dialog.open(DetallesPersonaje, {
       data: character,
+      width: '40px',
+      enterAnimationDuration: '200ms',
+      exitAnimationDuration: '150ms',
     });
   }
 
