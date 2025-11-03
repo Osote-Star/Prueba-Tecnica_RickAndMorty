@@ -1,4 +1,3 @@
-
 // Include theming for Angular Material with `mat.theme()`.
 // This Sass mixin will define CSS variables that are used for styling Angular Material
 // components according to the Material 3 design spec.
@@ -7,15 +6,18 @@
 @use '@angular/material' as mat;
 
 html {
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+  @include mat.theme((color: (primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
 }
+
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+
 
 body {
   // Default the application to a light color theme. This can be changed to
@@ -33,7 +35,74 @@ body {
   // Reset the user agent margin.
   margin: 0;
 }
+
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+// Paleta base
+$rm-green: #00ff9d;
+$rm-blue: #0a192f;
+$rm-accent: #4df3ff;
+$rm-dark: #061322;
+$rm-text: #e2e2e2;
+
+// Sobrescribir colores Bootstrap
+:root {
+  --bs-body-bg: #061322;
+  --bs-body-color: #e2e2e2;
+  --bs-primary: #00ff9d;
+  --bs-secondary: #4df3ff;
+  --bs-border-radius: 1rem;
+}
+
+// Fondo y tipografía global
+body {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  font-family: "Poppins", sans-serif;
+}
+
+// Tarjetas personalizadas
+.card {
+  background-color: #0d223d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: $rm-text;
+  border-radius: 1rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+  }
+}
+
+// Botones
+.btn-primary {
+  background: linear-gradient(90deg, $rm-green, $rm-accent);
+  border: none;
+  color: #000;
+  font-weight: 600;
+
+  &:hover {
+    background: linear-gradient(90deg, $rm-accent, $rm-green);
+    color: #000;
+  }
+}
+
+// Modal
+.modal-content {
+  background-color: #0b1b33;
+  color: $rm-text;
+  border: 1px solid rgba(0, 255, 157, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+}

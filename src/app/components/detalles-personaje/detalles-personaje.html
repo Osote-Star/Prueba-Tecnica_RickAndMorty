@@ -1,15 +1,54 @@
-<div class="detalle-container">
-  <img [src]="data.image" alt="{{ data.name }}" class="character-img" />
-  <h2>{{ data.name }}</h2>
-  <div class="info">
-    <p><mat-icon>badge</mat-icon> <b>Especie:</b> {{ data.species }}</p>
-    <p><mat-icon>person</mat-icon> <b>Género:</b> {{ data.gender }}</p>
-    <p><mat-icon>place</mat-icon> <b>Origen:</b> {{ data.origin.name }}</p>
-    <p><mat-icon>favorite</mat-icon> <b>Estatus:</b> {{ data.status }}</p>
-    <p><mat-icon>event</mat-icon> <b>Creacion:</b> {{ data.created | date: 'dd/MM/yyyy' }}</p>
-  </div>
+<!-- Fondo del modal -->
+<div class="modal-backdrop fade show" *ngIf="view" (click)="close()"></div>
 
-  <button mat-stroked-button color="accent" mat-dialog-close>
-    Cerrar
-  </button>
+<!-- Contenido del modal -->
+<div class="modal-portal" *ngIf="view">
+  <div class="modal-content-glass animate-in text-light position-relative" (click)="$event.stopPropagation()">
+    <button class="btn-close btn-close-white position-absolute top-0 end-0 m-3" (click)="close()"></button>
+
+    <!-- Imagen, nombre y especie -->
+    <div class="text-center">
+      <img [src]="c?.image" [alt]="c?.name"
+        class="character-img shadow-lg rounded-circle border border-3 border-light-subtle" />
+      <h3 class="fw-bold mt-3 portal-text">{{ c?.name }}</h3>
+
+      <p class="fw-semibold mb-4 portal-species">
+        <i class="bi bi-star-fill text-warning me-1"></i>
+        {{ c?.species }}
+      </p>
+
+
+    </div>
+
+
+    <!-- Datos completos del personaje -->
+    <ul class="list-group list-group-flush portal-list">
+      <li>
+        <i class="bi bi-gender-ambiguous me-2 text-success"></i>
+        <strong>Género:</strong> {{ c?.gender }}
+      </li>
+      <li>
+        <i class="bi bi-geo-alt me-2 text-success"></i>
+        <strong>Origen:</strong> {{ c?.origin?.name }}
+      </li>
+      <li>
+        <i class="bi" [ngClass]="{
+            'bi-heart-pulse-fill text-danger': c?.status === 'Dead',
+            'bi-heart-fill text-success': c?.status === 'Alive',
+            'bi-question-circle text-warning': c?.status === 'unknown'
+          }"></i>
+        <strong class="ms-2">Estatus:</strong> {{ c?.status }}
+      </li>
+      <li>
+        <i class="bi bi-calendar-event me-2 text-success"></i>
+        <strong>Creado:</strong> {{ c?.created | date: 'dd/MM/yyyy' }}
+      </li>
+    </ul>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-outline-success px-5" (click)="close()">
+        <i class="bi bi-x-circle me-2"></i> Cerrar
+      </button>
+    </div>
+  </div>
 </div>

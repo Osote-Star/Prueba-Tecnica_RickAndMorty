@@ -1,33 +1,99 @@
-<div class="search-container">
-  <mat-form-field appearance="outline" class="search-field">
-    <mat-label>Buscar personaje</mat-label>
-    <input matInput (input)="onSearchChange($event.target.value)" placeholder="Ejemplo: Rick">
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
-</div>
-
-<div class="card-grid">
-  <mat-card *ngFor="let c of characters()" class="character-card">
-    <img mat-card-image [src]="c.image" alt="{{ c.name }}">
-    <mat-card-content>
-      <h2>{{ c.name }}</h2>
-      <p><mat-icon inline>person</mat-icon> <i>{{ c.gender }}</i></p>
-      <p><mat-icon inline>favorite</mat-icon> {{ c.status }}</p>
-      <p><mat-icon inline>badge</mat-icon> {{ c.species }}</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-flat-button color="primary" (click)="openDetails(c)">
-        Ver detalle
+<div class="container py-4">
+  <!-- Buscador -->
+  <div class="search-bar-container mx-auto mb-4">
+    <div class="search-bar d-flex align-items-center shadow-sm">
+      <i class="bi bi-search search-icon"></i>
+      <input type="text" class="form-control search-input" placeholder="Buscar personaje..." [value]="search()"
+        (input)="onSearchChange($event.target.value)" />
+      <button *ngIf="search()" class="btn-clear" (click)="onSearchChange('')" aria-label="Limpiar búsqueda">
+        <i class="bi bi-x-circle"></i>
       </button>
-    </mat-card-actions>
-  </mat-card>
-</div>
+    </div>
+  </div>
 
-<div class="paginator-container">
-  <mat-paginator
-    [length]="totalItems()"
-    [pageSize]="20"
-    (page)="onPageChange($event)">
-  </mat-paginator>
-</div>
 
+  <!-- Listado de personajes -->
+  <div class="row g-4">
+    <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let c of filteredCharacters()">
+      <div class="card h-100 text-center shadow-sm">
+        <img [src]="c.image" class="card-img-top" [alt]="c.name" />
+        <div class="card-body text-light">
+          <h5 class="fw-bold mb-2 name-text">
+            <i class="bi bi-person-circle me-2 text-success"></i>{{ c.name }}
+          </h5>
+
+          <div class="d-flex justify-content-between align-items-center mb-1 info-line">
+            <span>
+              <i class="bi bi-gender-ambiguous me-1 text-info"></i>{{ c.gender }}
+            </span>
+
+            <span class="badge status-badge" [ngClass]="{
+              'bg-success': c.status === 'Alive',
+              'bg-danger': c.status === 'Dead',
+              'bg-secondary': c.status === 'unknown'
+            }">
+              <i class="bi" [ngClass]="{
+                'bi-heart-fill': c.status === 'Alive',
+                'bi-heartbreak': c.status === 'Dead',
+                'bi-question-circle': c.status === 'unknown'
+              }"></i>
+              {{ c.status }}
+            </span>
+          </div>
+        </div>
+
+        <div class="card-footer bg-transparent">
+          <button class="btn btn-primary w-100" (click)="openDetail(c)">
+            Ver Detalles
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensaje si no hay resultados -->
+    <div *ngIf="filteredCharacters().length === 0" class="col-12 text-center my-5 no-results">
+      <div class="portal-glow mx-auto mb-4">
+        <i class="bi bi-search text-light fs-1"></i>
+      </div>
+      <h4 class="fw-bold text-portal mb-2">¡No se encontraron personajes!</h4>
+      <p class="text-secondary fs-6">Prueba con otro nombre o revisa tu búsqueda 🌀</p>
+    </div>
+
+  </div>
+
+  <!-- Paginación -->
+  <nav aria-label="Page navigation" class="mt-5 d-flex justify-content-center">
+    <ul class="pagination pagination-modern">
+
+      <li class="page-item" [class.disabled]="page() === 1">
+        <a class="page-link" (click)="changePage(page() - 1)">
+          <i class="bi bi-chevron-left"></i>
+        </a>
+      </li>
+      <ng-container *ngFor="let p of visiblePages()">
+        <li *ngIf="p !== '...'; else ellipsis" class="page-item" [class.active]="page() === p">
+          <a class="page-link" (click)="typeof p === 'number' && changePage(p)">
+            {{ p }}
+          </a>
+
+        </li>
+        <ng-template #ellipsis>
+          <li class="page-item disabled">
+            <span class="page-link dots">…</span>
+          </li>
+        </ng-template>
+      </ng-container>
+
+      <li class="page-item" [class.disabled]="page() === totalPages()">
+        <a class="page-link" (click)="changePage(page() + 1)">
+          <i class="bi bi-chevron-right"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <!-- Cierre de modal -->
+  <app-detalles-personaje [c]="selectedCharacter" [view]="modalVisible"
+    (closeDetail)="closeModal()"></app-detalles-personaje>
+</div>

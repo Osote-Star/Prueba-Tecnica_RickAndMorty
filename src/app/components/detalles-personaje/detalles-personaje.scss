@@ -1,44 +1,116 @@
-.detalle-container {
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 255, 128, 0.15),
+    rgba(0, 0, 0, 0.85)
+  );
+  z-index: 1040;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.modal-portal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
-  padding: 1.5rem;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+}
 
-  .character-img {
-    border-radius: 50%;
-    width: 160px;
-    height: 160px;
-    object-fit: cover;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
+.modal-content-glass {
+  background: rgba(15, 25, 40, 0.85);
+  border: 1px solid rgba(0, 255, 128, 0.4);
+  border-radius: 1.2rem;
+  padding: 2rem;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 0 25px rgba(0, 255, 128, 0.5);
+  backdrop-filter: blur(10px);
+}
 
-  h2 {
-    margin-bottom: 1rem;
-    font-weight: 600;
-  }
+.character-img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border: 3px solid #00ff80;
+  box-shadow: 0 0 20px rgba(0, 255, 128, 0.6);
+  animation: pulseGlow 2s infinite alternate ease-in-out;
+}
 
-  .info {
-    text-align: left;
-    margin-bottom: 1.5rem;
-    width: 100%;
+.portal-text {
+  color: #00ff9d;
+  text-shadow: 0 0 10px rgba(0, 255, 128, 0.7);
+  letter-spacing: 1px;
+}
 
-    p {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin: 0.4rem 0;
-      font-size: 0.95rem;
-      color: #444;
+.portal-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+
+  li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(0, 255, 128, 0.2);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    i {
+      font-size: 1.2rem;
     }
-
-    mat-icon {
-      color: #3f51b5;
-    }
   }
 
-  button {
-    align-self: center;
+  strong {
+    color: #00ff9d;
   }
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulseGlow {
+  from {
+    box-shadow: 0 0 10px rgba(0, 255, 128, 0.5);
+  }
+  to {
+    box-shadow: 0 0 25px rgba(0, 255, 128, 0.9);
+  }
+}
+
+.animate-in {
+  animation: scaleIn 0.3s ease-in-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.portal-species {
+  color: #80ffb5; /* Verde menta claro */
+  text-shadow: 0 0 6px rgba(128, 255, 181, 0.5);
+  letter-spacing: 0.5px;
+}
+
